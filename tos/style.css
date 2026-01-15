@@ -28,6 +28,12 @@ body {
     overflow: hidden;
     border: 1px solid #2a2a2a;
     max-width: 600px;
+    transition: all 0.5s ease-out;
+}
+
+.card.shrinking {
+    opacity: 0;
+    transform: scale(0.95);
 }
 
 .header {
@@ -251,7 +257,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 240px;
+    min-height: 180px;
+    max-width: 400px;
 }
 
 .card.success-screen.hidden {
