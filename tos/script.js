@@ -87,7 +87,7 @@ async function saveAcceptance(hwid) {
         return true;
     } catch (error) {
         console.error('Erro:', error);
-        showMessage('Erro ao processar sua aceitacao. Tente novamente.', false);
+        showMessage('Erro ao processar sua aceitação. Tente novamente.', false);
         return false;
     }
 }
