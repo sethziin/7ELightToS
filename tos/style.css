@@ -228,12 +228,6 @@ body {
     cursor: pointer;
     user-select: none;
     transition: filter 0.3s ease;
-    padding: 4px 8px;
-    border-radius: 4px;
-}
-
-.hwid-blurred:hover {
-    background: rgba(74, 158, 255, 0.1);
 }
 
 .hwid-blurred.revealed {
