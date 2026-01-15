@@ -151,29 +151,14 @@ body {
     padding: 22px 24px;
     background: #0f0f0f;
     border-top: 1px solid #2a2a2a;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    max-height: 500px;
-    overflow: hidden;
-}
-
-.footer.adjust-height {
-    animation: compressFooter 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes compressFooter {
-    from {
-        max-height: 500px;
-        opacity: 1;
-    }
-    to {
-        max-height: 240px;
-        opacity: 1;
-    }
+    transition: all 0.4s ease-out;
 }
 
 .timer-container {
     margin-bottom: 24px;
     text-align: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
 
 .timer-text {
@@ -207,7 +192,10 @@ body {
 }
 
 .timer-container.hidden {
-    display: none;
+    margin-bottom: 0;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .timer-container.fade-out {

@@ -18,7 +18,19 @@ let timerInterval;
 // Obter HWID da URL
 function getHwidFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    return params.get('hwid') || 'unknown';
+    const hwid = params.get('hwid');
+    
+    if (!hwid) {
+        document.getElementById('mainCard').innerHTML = `
+            <div style="padding: 40px 24px; text-align: center;">
+                <h2 style="color: #ff5050; margin-bottom: 12px;">Erro</h2>
+                <p style="color: #888888; font-size: 14px;">HWID não fornecido. Acesso inválido.</p>
+            </div>
+        `;
+        return null;
+    }
+    
+    return hwid;
 }
 
 // Mostrar mensagem
@@ -118,7 +130,6 @@ function startTimer() {
             
             setTimeout(() => {
                 timerContainer.classList.add('hidden');
-                footer.classList.add('adjust-height');
             }, 500);
         }
     }, 50);
@@ -146,6 +157,11 @@ hwidDisplay.addEventListener('click', () => {
 // Inicializar página
 async function init() {
     const hwid = getHwidFromUrl();
+    
+    if (!hwid) {
+        return;
+    }
+    
     hwidDisplay.textContent = hwid.substring(0, 16) + '...';
 
     const alreadyAccepted = await checkIfAccepted(hwid);
