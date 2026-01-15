@@ -50,6 +50,10 @@ async function checkIfAccepted(hwid) {
 // Salvar aceitação (usando API REST do Supabase)
 async function saveAcceptance(hwid) {
     try {
+        console.log('Iniciando salvamento...');
+        console.log('SUPABASE_URL:', SUPABASE_URL);
+        console.log('HWID:', hwid);
+
         const response = await fetch(
             `${SUPABASE_URL}/rest/v1/tos_acceptances`,
             {
@@ -65,14 +69,19 @@ async function saveAcceptance(hwid) {
             }
         );
 
+        console.log('Status da resposta:', response.status);
+        const responseText = await response.text();
+        console.log('Resposta:', responseText);
+
         if (!response.ok) {
-            throw new Error('Erro ao salvar');
+            throw new Error(`Erro ${response.status}: ${responseText}`);
         }
 
+        console.log('✓ Salvo com sucesso!');
         showMessage('✓ Termos aceitos! Você pode fechar esta janela e voltar ao aplicativo.', true);
         return true;
     } catch (error) {
-        console.error('Erro:', error);
+        console.error('❌ Erro ao salvar:', error);
         showMessage('Erro ao processar sua aceitação. Tente novamente.', false);
         return false;
     }
