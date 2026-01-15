@@ -151,19 +151,23 @@ body {
     padding: 22px 24px;
     background: #0f0f0f;
     border-top: 1px solid #2a2a2a;
-    transition: all 0.4s ease-out;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 500px;
+    overflow: hidden;
 }
 
 .footer.adjust-height {
-    animation: adjustFooter 0.5s ease-out forwards;
+    animation: compressFooter 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-@keyframes adjustFooter {
+@keyframes compressFooter {
     from {
-        padding: 22px 24px;
+        max-height: 500px;
+        opacity: 1;
     }
     to {
-        padding: 22px 24px;
+        max-height: 240px;
+        opacity: 1;
     }
 }
 
