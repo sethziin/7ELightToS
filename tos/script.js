@@ -75,19 +75,14 @@ async function saveAcceptance(hwid) {
             throw new Error('Erro ao salvar');
         }
 
-        // Encolhe o card principal suavemente
-        document.getElementById('mainCard').classList.add('shrinking');
-        
-        // Aguarda a animação terminar antes de esconder
-        setTimeout(() => {
-            document.getElementById('mainCard').classList.add('hidden');
-            document.getElementById('successScreen').classList.remove('hidden');
-        }, 500);
+        // Esconde o card principal e mostra a tela de sucesso
+        document.getElementById('mainCard').classList.add('hidden');
+        document.getElementById('successScreen').classList.remove('hidden');
         
         // Fecha a página automaticamente após 2 segundos
         setTimeout(() => {
             window.close();
-        }, 2500);
+        }, 2000);
         
         return true;
     } catch (error) {
