@@ -62,27 +62,47 @@ body {
 }
 
 .alert-warning {
-    background-color: rgba(255, 80, 80, 0.12);
-    border: 1.5px solid rgba(255, 80, 80, 0.5);
-    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255, 80, 80, 0.08) 0%, rgba(255, 60, 60, 0.05) 100%);
+    border: 1px solid rgba(255, 80, 80, 0.35);
+    border-radius: 12px;
     padding: 16px 16px;
     margin-bottom: 24px;
     animation: slideIn 0.3s ease;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.alert-warning::before {
+    content: '';
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ff5050" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3.05h16.94a2 2 0 0 0 1.71-3.05L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: block;
+    flex-shrink: 0;
+    position: relative;
+    top: 2px;
+}
+
+.alert-warning-content {
+    flex: 1;
 }
 
 .alert-warning h3 {
     font-size: 14px;
     font-weight: 600;
     color: #ff5050;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    margin-bottom: 6px;
+    margin: 0 0 6px 0;
 }
 
 .alert-warning p {
     font-size: 12px;
-    color: #ff8080;
+    color: #ff7070;
     line-height: 1.5;
     margin: 0;
 }
