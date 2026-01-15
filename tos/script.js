@@ -79,6 +79,11 @@ async function saveAcceptance(hwid) {
         document.getElementById('mainCard').classList.add('hidden');
         document.getElementById('successScreen').classList.remove('hidden');
         
+        // Fecha a página automaticamente após 2 segundos
+        setTimeout(() => {
+            window.close();
+        }, 2000);
+        
         return true;
     } catch (error) {
         console.error('Erro:', error);
@@ -105,7 +110,14 @@ function startTimer() {
         if (elapsedTime >= TIMER_SECONDS) {
             clearInterval(timerInterval);
             acceptBtn.disabled = false;
-            document.getElementById('timerContainer').classList.add('hidden');
+            
+            // Dispara animação de fade-out e depois remove
+            const timerContainer = document.getElementById('timerContainer');
+            timerContainer.style.animation = 'fadeOutTimer 0.5s ease-out forwards';
+            
+            setTimeout(() => {
+                timerContainer.classList.add('hidden');
+            }, 500);
         }
     }, 50);
 }

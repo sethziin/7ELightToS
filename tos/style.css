@@ -140,6 +140,17 @@ body {
     display: none;
 }
 
+.timer-container {
+    animation: fadeOutTimer 0.5s ease-out forwards;
+}
+
+@keyframes fadeOutTimer {
+    to {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+}
+
 .message {
     padding: 12px 14px;
     border-radius: 8px;
@@ -239,7 +250,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 300px;
+    min-height: 240px;
 }
 
 .card.success-screen.hidden {
