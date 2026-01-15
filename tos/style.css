@@ -33,6 +33,7 @@ body {
     border: 1px solid #2a2a2a;
     max-width: 600px;
     width: 100%;
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header {
@@ -59,6 +60,7 @@ body {
     max-height: 450px;
     overflow-y: auto;
     background: #1a1a1a;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .alert-warning {
@@ -151,7 +153,7 @@ body {
     padding: 22px 24px;
     background: #0f0f0f;
     border-top: 1px solid #2a2a2a;
-    transition: all 0.4s ease-out;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .timer-container {
