@@ -154,6 +154,19 @@ body {
     transition: all 0.4s ease-out;
 }
 
+.footer.adjust-height {
+    animation: adjustFooter 0.5s ease-out forwards;
+}
+
+@keyframes adjustFooter {
+    from {
+        padding: 22px 24px;
+    }
+    to {
+        padding: 22px 24px;
+    }
+}
+
 .timer-container {
     margin-bottom: 24px;
     text-align: center;
@@ -243,24 +256,42 @@ body {
 
 .btn-accept {
     width: 100%;
-    padding: 12px 16px;
-    background: #4a9eff;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, #4a9eff 0%, #3a8eef 100%);
     color: #ffffff;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(74, 158, 255, 0.2);
+}
+
+.btn-accept::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-accept:hover:not(:disabled)::before {
+    left: 100%;
 }
 
 .btn-accept:hover:not(:disabled) {
-    background: #3a8eef;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+    background: linear-gradient(135deg, #3a8eef 0%, #2a7edf 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 158, 255, 0.35);
 }
 
 .btn-accept:active:not(:disabled) {
@@ -268,10 +299,11 @@ body {
 }
 
 .btn-accept:disabled {
-    background: #2a2a2a;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 0.6;
     color: #888888;
+    box-shadow: none;
 }
 
 .hwid-text {
@@ -321,7 +353,8 @@ body {
     font-size: 12px;
     color: #888888;
     line-height: 1.5;
-    max-width: 280px;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .hidden {

@@ -8,6 +8,7 @@ const messageDiv = document.getElementById('message');
 const hwidDisplay = document.getElementById('hwidDisplay');
 const timerFill = document.getElementById('timerFill');
 const countdown = document.getElementById('countdown');
+const footer = document.querySelector('.footer');
 
 // Timer de 15 segundos
 const TIMER_SECONDS = 15;
@@ -117,6 +118,7 @@ function startTimer() {
             
             setTimeout(() => {
                 timerContainer.classList.add('hidden');
+                footer.classList.add('adjust-height');
             }, 500);
         }
     }, 50);
