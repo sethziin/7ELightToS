@@ -113,7 +113,7 @@ function startTimer() {
             
             // Dispara animação de fade-out e depois remove
             const timerContainer = document.getElementById('timerContainer');
-            timerContainer.style.animation = 'fadeOutTimer 0.5s ease-out forwards';
+            timerContainer.classList.add('fade-out');
             
             setTimeout(() => {
                 timerContainer.classList.add('hidden');

@@ -27,29 +27,30 @@ body {
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid #2a2a2a;
+    max-width: 600px;
 }
 
 .header {
     background: linear-gradient(135deg, #1a1a1a 0%, #222222 100%);
-    padding: 32px 28px;
+    padding: 24px 24px;
     border-bottom: 1px solid #2a2a2a;
 }
 
 .header h1 {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     color: #ffffff;
 }
 
 .subtitle {
-    font-size: 14px;
+    font-size: 13px;
     color: #888888;
     font-weight: 400;
 }
 
 .tos-content {
-    padding: 28px;
+    padding: 22px 24px;
     max-height: 450px;
     overflow-y: auto;
     background: #1a1a1a;
@@ -96,7 +97,7 @@ body {
 }
 
 .footer {
-    padding: 28px;
+    padding: 22px 24px;
     background: #0f0f0f;
     border-top: 1px solid #2a2a2a;
 }
@@ -140,7 +141,7 @@ body {
     display: none;
 }
 
-.timer-container {
+.timer-container.fade-out {
     animation: fadeOutTimer 0.5s ease-out forwards;
 }
 
