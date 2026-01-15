@@ -42,11 +42,13 @@
             </div>
 
             <div class="footer">
-                <label class="checkbox-container">
-                    <input type="checkbox" id="acceptCheckbox">
-                    <span class="checkmark"></span>
-                    <span class="label-text">Li e aceito os Termos de Serviço</span>
-                </label>
+                <div class="timer-container" id="timerContainer">
+                    <p class="timer-text">Leia os termos antes de aceitar</p>
+                    <div class="timer-bar">
+                        <div class="timer-fill" id="timerFill"></div>
+                    </div>
+                    <p class="timer-countdown">Aguarde <span id="countdown">15</span>s</p>
+                </div>
 
                 <div id="message" class="message hidden"></div>
 

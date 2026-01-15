@@ -3,10 +3,16 @@ const SUPABASE_URL = 'https://vvlximqucyqsqqfndjmx.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2bHhpbXF1Y3lxc3FxZm5kam14Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg0ODYyNzgsImV4cCI6MjA4NDA2MjI3OH0.rZV1D9J4ilJ5Qu8ZZzxAnV6Sy3BQ8loL9JZOldqvr9Y';
 
 // Elementos do DOM
-const acceptCheckbox = document.getElementById('acceptCheckbox');
 const acceptBtn = document.getElementById('acceptBtn');
 const messageDiv = document.getElementById('message');
 const hwidDisplay = document.getElementById('hwidDisplay');
+const timerFill = document.getElementById('timerFill');
+const countdown = document.getElementById('countdown');
+
+// Timer de 15 segundos
+const TIMER_SECONDS = 15;
+let timeRemaining = TIMER_SECONDS;
+let timerInterval;
 
 // Obter HWID da URL
 function getHwidFromUrl() {
@@ -26,7 +32,7 @@ function clearMessage() {
     messageDiv.className = 'message hidden';
 }
 
-// Verificar se HWID já aceitou (usando API REST do Supabase)
+// Verificar se HWID já aceitou
 async function checkIfAccepted(hwid) {
     try {
         const response = await fetch(
@@ -47,13 +53,9 @@ async function checkIfAccepted(hwid) {
     }
 }
 
-// Salvar aceitação (usando API REST do Supabase)
+// Salvar aceitação
 async function saveAcceptance(hwid) {
     try {
-        console.log('Iniciando salvamento...');
-        console.log('SUPABASE_URL:', SUPABASE_URL);
-        console.log('HWID:', hwid);
-
         const response = await fetch(
             `${SUPABASE_URL}/rest/v1/tos_acceptances`,
             {
@@ -69,46 +71,54 @@ async function saveAcceptance(hwid) {
             }
         );
 
-        console.log('Status da resposta:', response.status);
-        const responseText = await response.text();
-        console.log('Resposta:', responseText);
-
         if (!response.ok) {
-            throw new Error(`Erro ${response.status}: ${responseText}`);
+            throw new Error('Erro ao salvar');
         }
 
-        console.log('✓ Salvo com sucesso!');
-        showMessage('✓ Termos aceitos! Você pode fechar esta janela e voltar ao aplicativo.', true);
+        // Esconde o card principal e mostra a tela de sucesso
+        document.getElementById('mainCard').classList.add('hidden');
+        document.getElementById('successScreen').classList.remove('hidden');
+        
         return true;
     } catch (error) {
-        console.error('❌ Erro ao salvar:', error);
-        showMessage('Erro ao processar sua aceitação. Tente novamente.', false);
+        console.error('Erro:', error);
+        showMessage('Erro ao processar sua aceitacao. Tente novamente.', false);
         return false;
     }
 }
 
-// Event listeners
-acceptCheckbox.addEventListener('change', () => {
-    acceptBtn.disabled = !acceptCheckbox.checked;
-    clearMessage();
-});
+// Iniciar o timer
+function startTimer() {
+    timeRemaining = TIMER_SECONDS;
+    acceptBtn.disabled = true;
 
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        countdown.textContent = timeRemaining;
+        
+        // Animar a barra de progresso
+        const progress = ((TIMER_SECONDS - timeRemaining) / TIMER_SECONDS) * 100;
+        timerFill.style.width = progress + '%';
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            acceptBtn.disabled = false;
+            document.getElementById('timerContainer').classList.add('hidden');
+        }
+    }, 1000);
+}
+
+// Event listeners
 acceptBtn.addEventListener('click', async () => {
     const hwid = getHwidFromUrl();
-
-    if (!acceptCheckbox.checked) {
-        showMessage('Por favor, aceite os Termos de Serviço', false);
-        return;
-    }
-
     acceptBtn.disabled = true;
     acceptBtn.textContent = 'Processando...';
 
     const success = await saveAcceptance(hwid);
 
     if (!success) {
-        acceptBtn.disabled = !acceptCheckbox.checked;
-        acceptBtn.textContent = 'Aceitar e Continuar';
+        acceptBtn.disabled = false;
+        acceptBtn.textContent = 'Aceitar Termos';
     }
 });
 
@@ -120,10 +130,12 @@ async function init() {
     const alreadyAccepted = await checkIfAccepted(hwid);
     
     if (alreadyAccepted) {
-        showMessage('✓ Você já aceitou os termos! Pode fechar esta janela.', true);
-        acceptCheckbox.disabled = true;
-        acceptBtn.disabled = true;
-        acceptBtn.textContent = 'Já Aceito';
+        // Se já foi aceito, mostrar tela de sucesso
+        document.getElementById('mainCard').classList.add('hidden');
+        document.getElementById('successScreen').classList.remove('hidden');
+    } else {
+        // Senão, iniciar o timer
+        startTimer();
     }
 }
 
