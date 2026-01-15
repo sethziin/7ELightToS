@@ -126,7 +126,7 @@ body {
     background: #4a9eff;
     border-radius: 2px;
     width: 100%;
-    transition: width 0.1s linear;
+    transition: width 0.05s linear;
 }
 
 .timer-countdown {
@@ -223,6 +223,23 @@ body {
     margin: 0;
 }
 
+.hwid-blurred {
+    filter: blur(6px);
+    cursor: pointer;
+    user-select: none;
+    transition: filter 0.3s ease;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.hwid-blurred:hover {
+    background: rgba(74, 158, 255, 0.1);
+}
+
+.hwid-blurred.revealed {
+    filter: blur(0px);
+}
+
 /* Tela de Sucesso */
 .card.success-screen {
     display: flex;
@@ -237,7 +254,7 @@ body {
 
 .success-content {
     text-align: center;
-    padding: 60px 40px;
+    padding: 80px 40px;
 }
 
 .success-icon {

@@ -91,21 +91,23 @@ async function saveAcceptance(hwid) {
 function startTimer() {
     timeRemaining = TIMER_SECONDS;
     acceptBtn.disabled = true;
+    let elapsedTime = 0;
 
     timerInterval = setInterval(() => {
-        timeRemaining--;
-        countdown.textContent = timeRemaining;
+        elapsedTime += 0.05;
+        timeRemaining = TIMER_SECONDS - Math.floor(elapsedTime);
+        countdown.textContent = Math.max(0, timeRemaining);
         
-        // Animar a barra de progresso
-        const progress = ((TIMER_SECONDS - timeRemaining) / TIMER_SECONDS) * 100;
-        timerFill.style.width = progress + '%';
+        // Animar a barra de progresso de forma smooth
+        const progress = (elapsedTime / TIMER_SECONDS) * 100;
+        timerFill.style.width = Math.min(progress, 100) + '%';
 
-        if (timeRemaining <= 0) {
+        if (elapsedTime >= TIMER_SECONDS) {
             clearInterval(timerInterval);
             acceptBtn.disabled = false;
             document.getElementById('timerContainer').classList.add('hidden');
         }
-    }, 1000);
+    }, 50);
 }
 
 // Event listeners
@@ -120,6 +122,11 @@ acceptBtn.addEventListener('click', async () => {
         acceptBtn.disabled = false;
         acceptBtn.textContent = 'Aceitar Termos';
     }
+});
+
+// Toggle HWID blur/reveal ao clicar
+hwidDisplay.addEventListener('click', () => {
+    hwidDisplay.classList.toggle('revealed');
 });
 
 // Inicializar página
