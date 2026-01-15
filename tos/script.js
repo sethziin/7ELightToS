@@ -124,13 +124,8 @@ function startTimer() {
             clearInterval(timerInterval);
             acceptBtn.disabled = false;
             
-            // Dispara animação de fade-out e depois remove
             const timerContainer = document.getElementById('timerContainer');
-            timerContainer.classList.add('fade-out');
-            
-            setTimeout(() => {
-                timerContainer.classList.add('hidden');
-            }, 500);
+            timerContainer.classList.add('collapsed'); 
         }
     }, 50);
 }
@@ -175,6 +170,66 @@ async function init() {
         startTimer();
     }
 }
+
+    const tos = document.querySelector('.tos-content');
+    const scrollbarThumb = document.getElementById('scrollbarThumb');
+    const track = document.querySelector('.scrollbar-track');
+
+    let targetScrollY = 0;
+    let currentScrollY = 0;
+    const sensitivity = 1.0; 
+    const speed = 0.08; 
+
+    function updateScroll() {
+        // 1. Calcular dimensões dinamicamente (caso a janela mude)
+        const contentHeight = tos.scrollHeight;
+        const viewHeight = tos.clientHeight;
+        const maxScroll = contentHeight - viewHeight;
+
+        // 2. Interpolação suave (Lerp)
+        const diff = targetScrollY - currentScrollY;
+        currentScrollY += diff * speed;
+
+        // Evitar micro-movimentos infinitos
+        if (Math.abs(diff) < 0.01) currentScrollY = targetScrollY;
+
+        // 3. Aplicar scroll ao conteúdo
+        tos.scrollTop = currentScrollY;
+
+        // 4. Atualizar Scrollbar Visual
+        if (maxScroll > 0) {
+            track.style.display = 'block';
+            const trackHeight = track.clientHeight;
+            
+            // Altura proporcional do thumb
+            const thumbHeight = Math.max((viewHeight / contentHeight) * trackHeight, 30);
+            scrollbarThumb.style.height = `${thumbHeight}px`;
+
+            // Posição proporcional do thumb
+            const scrollPercent = currentScrollY / maxScroll;
+            const thumbPosition = scrollPercent * (trackHeight - thumbHeight);
+            scrollbarThumb.style.top = `${thumbPosition}px`;
+        } else {
+            track.style.display = 'none';
+        }
+
+        requestAnimationFrame(updateScroll);
+    }
+
+    // Evento de Scroll do Mouse
+    tos.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const maxScroll = tos.scrollHeight - tos.clientHeight;
+        
+        // Atualiza o destino do scroll
+        targetScrollY += e.deltaY * sensitivity;
+        
+        // Limita as bordas
+        targetScrollY = Math.max(0, Math.min(targetScrollY, maxScroll));
+    }, { passive: false });
+
+    // Inicia o loop
+    updateScroll();
 
 // Rodar quando a página carregar
 document.addEventListener('DOMContentLoaded', init);
