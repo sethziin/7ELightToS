@@ -8,38 +8,60 @@
 </head>
 <body>
     <div class="container">
-        <div class="card">
-            <h1>Termos de Serviço</h1>
-            
-            <div class="tos-content">
-                <p>Bem-vindo ao 7ELight! Antes de usar nosso aplicativo, você precisa aceitar nossos Termos de Serviço.</p>
-
-                <h2>1. Licença de Uso</h2>
-                <p>O aplicativo é fornecido sob licença pessoal, intransferível e não exclusiva para seu uso pessoal.</p>
-
-                <h2>2. Restrições</h2>
-                <p>Você concorda em não: (a) modificar, descompilar ou fazer engenharia reversa do software; (b) usar para fins comerciais; (c) distribuir ou revender.</p>
-
-                <h2>3. Isenção de Responsabilidade</h2>
-                <p>O software é fornecido "como está" sem garantias de qualquer tipo. Não somos responsáveis por danos diretos ou indiretos.</p>
-
-                <h2>4. Rescisão</h2>
-                <p>Podemos rescindir sua licença a qualquer tempo se você violar estes termos.</p>
-
-                <h2>5. Privacidade</h2>
-                <p>Coletamos apenas o identificador único do seu dispositivo (HWID) para verificar a aceitação destes termos.</p>
+        <div class="card" id="mainCard">
+            <div class="header">
+                <h1>Termos de Serviço</h1>
+                <p class="subtitle">Leia e aceite para continuar</p>
             </div>
 
-            <label class="checkbox-container">
-                <input type="checkbox" id="acceptCheckbox">
-                <span>Eu li e aceito os Termos de Serviço</span>
-            </label>
+            <div class="tos-content">
+                <section>
+                    <h2>1. Licença de Uso</h2>
+                    <p>O aplicativo é fornecido sob licença pessoal, intransferível e não exclusiva para seu uso pessoal.</p>
+                </section>
 
-            <div id="message" class="message hidden"></div>
+                <section>
+                    <h2>2. Restrições</h2>
+                    <p>Você concorda em não: (a) modificar, descompilar ou fazer engenharia reversa do software; (b) usar para fins comerciais; (c) distribuir ou revender.</p>
+                </section>
 
-            <button id="acceptBtn" class="btn" disabled>Aceitar e Continuar</button>
+                <section>
+                    <h2>3. Isenção de Responsabilidade</h2>
+                    <p>O software é fornecido "como está" sem garantias de qualquer tipo. Não somos responsáveis por danos diretos ou indiretos.</p>
+                </section>
 
-            <p class="hwid-text">HWID: <span id="hwidDisplay">carregando...</span></p>
+                <section>
+                    <h2>4. Rescisão</h2>
+                    <p>Podemos rescindir sua licença a qualquer tempo se você violar estes termos.</p>
+                </section>
+
+                <section>
+                    <h2>5. Privacidade</h2>
+                    <p>Coletamos apenas o identificador único do seu dispositivo (HWID) para verificar a aceitação destes termos.</p>
+                </section>
+            </div>
+
+            <div class="footer">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="acceptCheckbox">
+                    <span class="checkmark"></span>
+                    <span class="label-text">Li e aceito os Termos de Serviço</span>
+                </label>
+
+                <div id="message" class="message hidden"></div>
+
+                <button id="acceptBtn" class="btn-accept" disabled>Aceitar Termos</button>
+
+                <p class="hwid-text">HWID: <span id="hwidDisplay">carregando...</span></p>
+            </div>
+        </div>
+
+        <div class="card success-screen hidden" id="successScreen">
+            <div class="success-content">
+                <div class="success-icon">✓</div>
+                <h1>Sucesso!</h1>
+                <p class="success-message">Obrigado! Você pode fechar essa janela e voltar ao app</p>
+            </div>
         </div>
     </div>
 
