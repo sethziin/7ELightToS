@@ -1,6 +1,6 @@
 // Substitua com suas credenciais do Supabase
-const SUPABASE_URL = 'https://seu-projeto.supabase.co';
-const SUPABASE_ANON_KEY = 'sua-chave-publica-aqui';
+const SUPABASE_URL = 'https://vvlximqucyqsqqfndjmx.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2bHhpbXF1Y3lxc3FxZm5kam14Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg0ODYyNzgsImV4cCI6MjA4NDA2MjI3OH0.rZV1D9J4ilJ5Qu8ZZzxAnV6Sy3BQ8loL9JZOldqvr9Y';
 
 // Elementos do DOM
 const acceptCheckbox = document.getElementById('acceptCheckbox');
