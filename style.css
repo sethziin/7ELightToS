@@ -1,0 +1,123 @@
+:root {
+    --bg: #fafaf8; /* Branco papel suave */
+    --text: #1a1a1a;
+    --meta: #999;
+    --border: #ececea;
+}
+
+/* Scrollbar Mínima */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #e0e0e0; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: "Georgia", serif;
+    line-height: 1.8;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 100px 20px;
+}
+
+/* Botão Sair - Georgia Italic */
+#top-nav {
+    position: fixed;
+    top: 35px;
+    right: 45px;
+    font-family: "Georgia", serif; 
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #ccc;
+    cursor: pointer;
+    z-index: 100;
+    transition: color 0.3s;
+    text-transform: none; /* Garante que não fique maiúsculo */
+}
+#top-nav span:hover { color: #1a1a1a; }
+
+.wrapper { max-width: 550px; width: 100%; }
+
+header { margin-bottom: 100px; text-align: center; }
+header h1 { 
+    font-weight: normal; 
+    font-size: 1.4rem; 
+    letter-spacing: 4px; 
+    text-transform: none; /* Respeita como você digitar o título */
+}
+
+/* Posts */
+.post { margin-bottom: 120px; }
+.post-title { font-size: 1.25rem; font-style: italic; margin-bottom: 15px; font-weight: normal; }
+.post-content { font-size: 1.05rem; text-align: justify; color: #222; white-space: pre-wrap; }
+
+/* Meta (Data e Entry) - Arial Sans-serif */
+.post-meta { 
+    font-family: Arial, sans-serif; 
+    font-size: 0.6rem; 
+    color: var(--meta); 
+    margin-top: 20px; 
+    letter-spacing: 1px;
+    text-transform: none; /* entry_ ficará minúsculo como no banco */
+}
+
+.admin-actions { margin-left: 10px; }
+.admin-actions span { cursor: pointer; margin-right: 8px; text-decoration: underline; color: #ddd; }
+.admin-actions span:hover { color: #000; }
+
+/* Paginação - Arial Sans-serif */
+#pagination {
+    margin: 50px 0 100px 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+}
+.page-link {
+    cursor: pointer;
+    color: #ccc;
+    margin: 0 12px;
+    transition: color 0.3s;
+}
+.page-link.active { color: #1a1a1a; font-weight: bold; }
+.page-link:hover { color: #888; }
+
+/* Overlay e Modal */
+.overlay { 
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    background: rgba(250, 250, 248, 0.98);
+    z-index: 1000; 
+    justify-content: center; align-items: center; 
+}
+.modal { width: 90%; max-width: 450px; position: relative; }
+.close { position: absolute; top: -50px; right: 0; font-size: 2rem; cursor: pointer; color: #ccc; }
+
+input, textarea { 
+    width: 100%; padding: 12px 0; margin-bottom: 20px; border: none; 
+    border-bottom: 1px solid var(--border); font-family: "Georgia", serif; 
+    font-size: 1rem; outline: none; background: transparent; 
+}
+
+button { 
+    background: #1a1a1a; color: #fff; border: none; padding: 10px 20px; 
+    font-family: Arial; font-size: 0.7rem; cursor: pointer;
+    text-transform: none; /* Botões respeitam o texto original */
+}
+
+/* Rodapé - Removido o uppercase para aceitar "seven elight" minúsculo */
+footer { 
+    margin-top: 50px; 
+    text-align: center; 
+    font-size: 0.65rem; 
+    color: #ccc; 
+    font-family: Arial; 
+    letter-spacing: 1px;
+    text-transform: none; /* CRUCIAL: Agora aceita minúsculas */
+}
+
+.secret-trigger { cursor: default; color: transparent; user-select: none; }
+#admin-link { color: #ccc; text-decoration: none; margin-top: 15px; display: inline-block; font-size: 0.65rem; }
