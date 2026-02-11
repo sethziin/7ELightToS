@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>stc</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="sakura.ico">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="style.css">
@@ -24,16 +23,16 @@
             <p class="loading">...</p>
         </main>
 
-        <!-- Container de Paginação -->
         <nav id="pagination"></nav>
 
-            <footer>
-                <span id="year"></span> think carefully <span onclick="showLogin()" class="secret-trigger">.</span>
-                <br>
-                <a href="#" id="admin-link" style="display:none;" onclick="showEditor()">[something?]</a>
-            </footer>
+        <footer>
+            <span id="year"></span> think carefully <span onclick="showLogin()" class="secret-trigger">.</span>
+            <br>
+            <a href="#" id="admin-link" style="display:none;" onclick="showEditor()">[something?]</a>
+        </footer>
     </div>
 
+    <!-- Overlay do Editor/Login -->
     <div id="overlay" class="overlay">
         <div class="modal">
             <span class="close" onclick="closeOverlay()">×</span>
@@ -47,10 +46,42 @@
             <div id="editor-form" style="display:none;">
                 <h2 id="editor-title">wr it e dow n</h2>
                 <input type="hidden" id="edit-id">
+                
+                <div class="file-upload">
+                    <label for="image-input">[add_img]</label>
+                    <input type="file" id="image-input" accept="image/*" onchange="previewImage(event)">
+                    
+                    <label for="audio-input" style="margin-left: 15px;">[add_audio]</label>
+                    <input type="file" id="audio-input" accept="audio/*" onchange="previewAudioUpload(event)">
+
+                    <span id="record-btn" onclick="toggleRecording()" style="margin-left: 15px;">[rec]</span>
+                </div>
+
+                <div id="recording-status" style="display: none;">
+                    recording... <span id="recording-timer">00:00</span>
+                </div>
+
+                <div id="media-previews">
+                    <div id="image-preview-container" style="display: none; margin-bottom: 20px;">
+                        <img id="image-preview" src="" style="width: 100%; max-height: 200px; object-fit: contain; border: 1px solid #ececea;">
+                    </div>
+                    <div id="audio-preview-container" style="display: none; margin-bottom: 20px;">
+                        <audio id="audio-preview-player" controls style="height: 25px; width: 100%; opacity: 0.5;"></audio>
+                    </div>
+                </div>
+
                 <input type="text" id="post-title-input" placeholder="t_">
-                <textarea id="post-content-input" rows="10" placeholder="e a_"></textarea>
+                <textarea id="post-content-input" rows="10" placeholder="e a_ (optional)"></textarea>
                 <button onclick="savePost()">p</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Ajustado -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content" onclick="closeLightbox()">
+            <img id="lightbox-img" src="">
         </div>
     </div>
 

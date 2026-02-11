@@ -1,123 +1,115 @@
 :root {
-    --bg: #fafaf8; /* Branco papel suave */
+    --bg: #fafaf8;
     --text: #1a1a1a;
     --meta: #999;
     --border: #ececea;
 }
 
-/* Scrollbar Mínima */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: #e0e0e0; }
 
-body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: "Georgia", serif;
-    line-height: 1.8;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    padding: 100px 20px;
-}
+body { background-color: var(--bg); color: var(--text); font-family: "Georgia", serif; line-height: 1.8; margin: 0; display: flex; justify-content: center; padding: 100px 20px; }
 
-/* Botão Sair - Georgia Italic */
-#top-nav {
-    position: fixed;
-    top: 35px;
-    right: 45px;
-    font-family: "Georgia", serif; 
-    font-size: 0.85rem;
-    font-style: italic;
-    color: #ccc;
-    cursor: pointer;
-    z-index: 100;
-    transition: color 0.3s;
-    text-transform: none; /* Garante que não fique maiúsculo */
-}
-#top-nav span:hover { color: #1a1a1a; }
+#top-nav { position: fixed; top: 35px; right: 45px; font-family: "Georgia", serif; font-size: 0.85rem; font-style: italic; color: #ccc; cursor: pointer; z-index: 100; }
+#top-nav:hover { color: #1a1a1a; }
 
 .wrapper { max-width: 550px; width: 100%; }
-
 header { margin-bottom: 100px; text-align: center; }
-header h1 { 
-    font-weight: normal; 
-    font-size: 1.4rem; 
-    letter-spacing: 4px; 
-    text-transform: none; /* Respeita como você digitar o título */
-}
+header h1 { font-weight: normal; font-size: 1.4rem; letter-spacing: 4px; }
 
-/* Posts */
 .post { margin-bottom: 120px; }
-.post-title { font-size: 1.25rem; font-style: italic; margin-bottom: 15px; font-weight: normal; }
+.post-title { font-size: 1.25rem; font-style: italic; margin-bottom: 20px; font-weight: normal; }
 .post-content { font-size: 1.05rem; text-align: justify; color: #222; white-space: pre-wrap; }
+.post-content:empty { display: none; }
 
-/* Meta (Data e Entry) - Arial Sans-serif */
-.post-meta { 
-    font-family: Arial, sans-serif; 
-    font-size: 0.6rem; 
-    color: var(--meta); 
-    margin-top: 20px; 
-    letter-spacing: 1px;
-    text-transform: none; /* entry_ ficará minúsculo como no banco */
+/* Imagem no Feed (Alinhada à Esquerda) */
+.post-image { 
+    max-width: 100%;
+    max-height: 500px; 
+    height: auto;
+    margin: 0 0 25px 0; 
+    display: block; 
+    opacity: 0.85; 
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: opacity 0.3s;
 }
+.post-image:hover { opacity: 1; }
 
+/* Custom Audio Player */
+.audio-wrapper { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; padding: 5px 0; }
+.play-btn { font-family: "Georgia", serif; font-style: italic; font-size: 0.85rem; color: #1a1a1a; cursor: pointer; min-width: 45px; }
+.progress-container { flex-grow: 1; height: 15px; display: flex; align-items: center; position: relative; cursor: pointer; }
+.progress-track { width: 100%; height: 1px; background-color: #eee; position: relative; }
+.progress-fill { height: 100%; background-color: #1a1a1a; width: 0%; position: absolute; left: 0; top: 0; }
+.audio-time { font-family: Arial, sans-serif; font-size: 0.6rem; color: #ccc; letter-spacing: 1px; min-width: 45px; text-align: right; }
+audio.hidden-player { display: none; }
+
+.post-meta { font-family: Arial, sans-serif; font-size: 0.6rem; color: var(--meta); margin-top: 20px; letter-spacing: 1px; }
 .admin-actions { margin-left: 10px; }
 .admin-actions span { cursor: pointer; margin-right: 8px; text-decoration: underline; color: #ddd; }
 .admin-actions span:hover { color: #000; }
 
-/* Paginação - Arial Sans-serif */
-#pagination {
-    margin: 50px 0 100px 0;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-}
-.page-link {
-    cursor: pointer;
-    color: #ccc;
-    margin: 0 12px;
-    transition: color 0.3s;
-}
+#pagination { margin: 50px 0 100px 0; text-align: center; font-family: Arial, sans-serif; font-size: 0.7rem; letter-spacing: 2px; }
+.page-link { cursor: pointer; color: #ccc; margin: 0 12px; }
 .page-link.active { color: #1a1a1a; font-weight: bold; }
-.page-link:hover { color: #888; }
 
-/* Overlay e Modal */
-.overlay { 
-    display: none; 
-    position: fixed; 
-    top: 0; left: 0; 
-    width: 100%; height: 100%; 
-    background: rgba(250, 250, 248, 0.98);
-    z-index: 1000; 
-    justify-content: center; align-items: center; 
-}
+/* Modal Editor */
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(250, 250, 248, 0.98); z-index: 1000; justify-content: center; align-items: center; }
 .modal { width: 90%; max-width: 450px; position: relative; }
 .close { position: absolute; top: -50px; right: 0; font-size: 2rem; cursor: pointer; color: #ccc; }
 
-input, textarea { 
-    width: 100%; padding: 12px 0; margin-bottom: 20px; border: none; 
-    border-bottom: 1px solid var(--border); font-family: "Georgia", serif; 
-    font-size: 1rem; outline: none; background: transparent; 
+/* Lightbox Corrigido e Centralizado */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(250, 250, 248, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    flex-direction: column;
 }
 
-button { 
-    background: #1a1a1a; color: #fff; border: none; padding: 10px 20px; 
-    font-family: Arial; font-size: 0.7rem; cursor: pointer;
-    text-transform: none; /* Botões respeitam o texto original */
+.lightbox-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
-/* Rodapé - Removido o uppercase para aceitar "seven elight" minúsculo */
-footer { 
-    margin-top: 50px; 
-    text-align: center; 
-    font-size: 0.65rem; 
-    color: #ccc; 
-    font-family: Arial; 
-    letter-spacing: 1px;
-    text-transform: none; /* CRUCIAL: Agora aceita minúsculas */
+.lightbox img {
+    max-width: 90vw; /* Máximo 90% da largura da tela */
+    max-height: 80vh; /* Máximo 80% da altura para sobrar espaço pro X */
+    object-fit: contain; /* Garante que a imagem apareça inteira sem esticar */
+    box-shadow: 0 10px 50px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    cursor: default;
 }
 
+.lightbox-close {
+    align-self: flex-end;
+    padding: 20px 30px;
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    line-height: 1;
+    z-index: 2001;
+}
+
+input, textarea { width: 100%; padding: 12px 0; margin-bottom: 20px; border: none; border-bottom: 1px solid var(--border); font-family: "Georgia", serif; font-size: 1rem; outline: none; background: transparent; }
+button { background: #1a1a1a; color: #fff; border: none; padding: 10px 20px; font-family: Arial; font-size: 0.7rem; cursor: pointer; }
+
+.file-upload { margin-bottom: 15px; }
+.file-upload label, #record-btn { font-family: Arial, sans-serif; font-size: 0.6rem; color: #ccc; cursor: pointer; text-transform: uppercase; }
+#record-btn.active { color: #ff0000; }
+#recording-status { font-size: 0.6rem; color: #ff0000; margin-bottom: 10px; font-family: Arial; text-transform: uppercase; }
+#image-input, #audio-input { display: none; }
+
+footer { margin-top: 50px; text-align: center; font-size: 0.65rem; color: #ccc; font-family: Arial; letter-spacing: 1px; }
 .secret-trigger { cursor: default; color: transparent; user-select: none; }
 #admin-link { color: #ccc; text-decoration: none; margin-top: 15px; display: inline-block; font-size: 0.65rem; }
