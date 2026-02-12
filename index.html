@@ -17,6 +17,7 @@
     <div class="wrapper">
         <header>
             <h1>stc</h1>
+            <p class="header-desc">...</p>
         </header>
 
         <main id="posts-container">
@@ -45,6 +46,14 @@
 
             <div id="editor-form" style="display:none;">
                 <h2 id="editor-title">wr it e dow n</h2>
+                
+                <!-- Edição da Descrição do Site -->
+                <div id="site-settings-zone" style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
+                    <p style="font-family: Arial; font-size: 0.6rem; color: #ccc; margin-bottom: 10px; text-transform: uppercase;">site description</p>
+                    <input type="text" id="site-desc-input" placeholder="mudar descrição do site...">
+                    <button onclick="updateSiteDesc()" style="padding: 5px 10px; font-size: 0.6rem;">update desc</button>
+                </div>
+
                 <input type="hidden" id="edit-id">
                 
                 <div class="file-upload">
@@ -77,7 +86,7 @@
         </div>
     </div>
 
-    <!-- Lightbox Ajustado -->
+    <!-- Lightbox -->
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
         <div class="lightbox-content" onclick="closeLightbox()">

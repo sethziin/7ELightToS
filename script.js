@@ -13,7 +13,10 @@ init();
 
 async function init() {
     await checkSession();
+    await fetchSiteDesc();
     await fetchAllPosts();
+    const yearEl = document.getElementById('year');
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
 async function checkSession() {
@@ -21,6 +24,39 @@ async function checkSession() {
     isLoggedIn = !!session;
     document.getElementById('admin-link').style.display = isLoggedIn ? 'inline-block' : 'none';
     document.getElementById('top-nav').style.display = isLoggedIn ? 'block' : 'none';
+}
+
+// Lógica de Descrição Dinâmica
+async function fetchSiteDesc() {
+    const { data } = await _supabase.from('settings').select('value').eq('key', 'header_desc').single();
+    if (data) {
+        document.querySelector('.header-desc').textContent = data.value;
+        document.getElementById('site-desc-input').value = data.value;
+    }
+}
+
+async function updateSiteDesc() {
+    const newValue = document.getElementById('site-desc-input').value;
+    const { error } = await _supabase.from('settings').update({ value: newValue }).eq('key', 'header_desc');
+    if (error) alert("Erro: " + error.message);
+    else {
+        document.querySelector('.header-desc').textContent = newValue;
+        alert("descrição atualizada.");
+    }
+}
+
+// Markdown Parser estilo Discord
+function parseMarkdown(text) {
+    if (!text) return "";
+    // Escapa HTML básico para segurança e processa markdowns
+    return text
+        .replace(/</g, "&lt;").replace(/>/g, "&gt;") 
+        .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>') // Bold Italic
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')             // Bold
+        .replace(/__(.*?)__/g, '<u>$1</u>')                           // Underline
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')                         // Italic
+        .replace(/_(.*?)_/g, '<em>$1</em>')                           // Italic alt
+        .replace(/~~(.*?)~~/g, '<del>$1</del>');                      // Strikethrough
 }
 
 async function fetchAllPosts() {
@@ -58,7 +94,8 @@ function renderPosts() {
             </div>`;
         }
 
-        const contentTag = p.content ? `<div class="post-content">${p.content}</div>` : '';
+        // Aplica o Markdown ao conteúdo do post
+        const contentTag = p.content ? `<div class="post-content">${parseMarkdown(p.content)}</div>` : '';
         const adminButtons = isLoggedIn ? `<span class="admin-actions"><span onclick="openEdit(${p.id})">editar</span><span onclick="deletePost(${p.id})">apagar</span></span>` : '';
         
         container.innerHTML += `
@@ -73,7 +110,6 @@ function renderPosts() {
     renderPagination();
 }
 
-// Lightbox Logic Centralizada
 function openLightbox(url) {
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img');
@@ -87,7 +123,6 @@ function closeLightbox() {
     document.body.style.overflow = 'auto'; 
 }
 
-// Audio Player Logic
 function formatTime(seconds) {
     if (isNaN(seconds)) return "00:00";
     let m = Math.floor(seconds / 60);
@@ -141,7 +176,6 @@ function seekAudio(e, id) {
     audio.currentTime = (x / width) * audio.duration;
 }
 
-// Editor Media Previews
 function previewImage(event) {
     const reader = new FileReader();
     reader.onload = () => { 
