@@ -15,7 +15,7 @@ async function init() {
     await checkSession();
     await fetchSiteDesc();
     await fetchAllPosts();
-    const yearEl = document.getElementById('year');
+    //const yearEl = document.getElementById('year');
     if(yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
